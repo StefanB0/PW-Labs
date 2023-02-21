@@ -1,6 +1,5 @@
 /* add your CSS here */
 
-
 .container {
  display: flex;
  justify-content: space-between;
@@ -42,6 +41,8 @@
 .display-container {
 	max-width: 80%;
 	margin-left: 10%;
+	margin-top: 100px;
+	margin-bottom: 40px;
 }
 
 .display-card {
@@ -50,7 +51,18 @@
 	align-items: center;
 	align-content: center;
 	justify-content: space-around;
+}
 
+.display-card-desc {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	align-content: center;
+	justify-content: space-between;
+	margin-top: 20px;
+}
+
+.display-img-box {
 	width: 350px;
 	height: 350px;
 	border: solid;
@@ -100,15 +112,24 @@
 
 .hero-text-button {
 	border: black solid;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  margin: 4px 2px;
-  cursor: pointer;
-  border-radius: 22px;
+  	padding: 10px 20px;
+  	text-align: center;
+  	text-decoration: none;
+  	display: inline-block;
+  	margin: 4px 2px;
+  	cursor: pointer;
+  	border-radius: 22px;
 	font-size: 16px;
 	font-weight: bold;
+}
+
+.hero-text .hero-text-button  {
+	margin: 20px;
+}
+
+.hero-text-button .padding-0 {
+	padding: 0;
+	margin: 0;
 }
 
 .button-1 {
@@ -117,7 +138,7 @@
 }
 
 .button-2 {
-	background-color: beige;
+	background-color: transparent;
 	color: #f05317;
 }
 
@@ -133,4 +154,6 @@
 button {
 	cursor: pointer;
 }
+
+
 
