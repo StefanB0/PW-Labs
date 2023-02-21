@@ -1,0 +1,36 @@
+/* Background images */
+
+.hero-image {
+	background-color: #cccccc; /* Used if the image is unavailable */
+	background-position: center;
+	background-repeat: no-repeat; /* Do not repeat the image */
+	background-size: cover;
+	position: relative;
+}
+
+.section-1 {
+	height: 920px;
+	border-bottom: 4px solid;
+	background-image: url("../images/background-1.jpg");
+}
+
+.section-2 {
+	height: 666px;
+	border-bottom: 4px solid;
+	background-image: url("../images/background-2.jpg");
+}
+
+.section-3 {
+	height: 925px;
+	background-color: beige;
+}
+
+.section-4 {
+	height: 730px;
+	background-image: url("../images/background-3.jpg");
+}
+
+.footer {
+	height: 435px;
+	background-image: url("../images/background-footer.jpg");
+}

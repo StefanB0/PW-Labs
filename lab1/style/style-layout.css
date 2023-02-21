@@ -1,0 +1,136 @@
+/* add your CSS here */
+
+
+.container {
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+ align-content: center;
+}
+
+.border {
+	border: 2px solid;
+}
+
+.main-page-header {
+ padding-top: 50px;
+ max-width: 80%;
+ margin: auto;
+}
+
+.navbar-menu {
+	margin-left: 10px;
+	margin-right: auto;
+}
+
+.navbar-icon {
+	margin: 0px 10px;
+}
+
+.hero-container {
+	display: flex;
+	/* justify-content: space-around; */
+	align-items: center;
+	align-content: center;
+	margin-left: 10%;
+}
+
+.hero-box {
+	padding-top: 120px;
+}
+
+.display-container {
+	max-width: 80%;
+	margin-left: 10%;
+}
+
+.display-card {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	align-content: center;
+	justify-content: space-around;
+
+	width: 350px;
+	height: 350px;
+	border: solid;
+	border-radius: 22px;
+}
+
+.display-btn-box {
+	text-align: center;
+}
+
+.display-btn-box button {
+	margin: 20px;
+}
+
+.btn-arrow-left {
+	transform: rotate(90deg);
+}
+
+.btn-arrow-right {
+	transform: rotate(-90deg);
+}
+
+.faq-box {
+	padding-top: 5%;
+	padding-left: 10%;
+	max-width: 35%;
+	color: white;
+}
+
+.faq-box h1 {
+	font-size: 150px;
+	font-weight: bold;
+}
+
+.faq-box ul li {
+	margin: 20px;
+	width: auto;
+	font-size: 2rem;
+	font-weight: bold;
+	border-bottom: white solid;
+}
+
+.faq-box button {
+	border: none;
+	background: transparent;
+}
+
+.hero-text-button {
+	border: black solid;
+  padding: 10px 20px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 22px;
+	font-size: 16px;
+	font-weight: bold;
+}
+
+.button-1 {
+	background-color: #f05317;
+	color: white;
+}
+
+.button-2 {
+	background-color: beige;
+	color: #f05317;
+}
+
+.direction-button {
+	margin-top: 12%;
+}
+
+.icon-btn {
+	border: none;
+	background: transparent;
+}
+
+button {
+	cursor: pointer;
+}
+

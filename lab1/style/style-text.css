@@ -1,0 +1,57 @@
+/* add your CSS here */
+
+.hero-text {
+	text-align: center;
+}
+
+.hero-text h1 {
+	font-size: 150px;
+	font-weight: bold;
+	margin: inherit;
+}
+
+.hero-text-2 h1 {
+	font-size: 100px;
+}
+
+.hero-text h2 {
+	font-size: 30px;
+	font-weight: bold;
+	margin: inherit;
+}
+
+.hero-text p {
+	color: black;
+	font-weight: bold;
+	word-spacing: 4px;
+	margin: 20px;
+}
+
+.hero-text-button {
+	margin: 20px;
+}
+
+.orange {
+	color: #f05317;
+}
+
+.white {
+	color: rgb(207, 207, 207);
+}
+
+.navbar a {
+	padding: 14px;
+	text-decoration: none;
+	font-size: 18px;
+	font-weight: bold;
+	color: #f05317;
+}
+
+.aside-text {
+	writing-mode: vertical-rl;
+	font-size: 30px;
+	font-weight: bold;
+	color: white;
+	margin-right: 10%;
+	margin-left: auto;
+}
