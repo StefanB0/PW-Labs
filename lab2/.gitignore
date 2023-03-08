@@ -1,0 +1,8 @@
+# Ignore temporary files 
+/tmp/
+
+# Ignore txt files
+*.txt
+
+# GO
+go.sum
