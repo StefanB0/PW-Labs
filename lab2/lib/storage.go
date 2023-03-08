@@ -1,36 +1,37 @@
 package lib
 
 import (
-	"fmt"
+	"bufio"
 	"log"
 	"os"
 )
 
-func saveToStorage(urls []string) {
+func saveToStorage(items []Search_Item) {
 	file, err := os.Create("storage.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
-	for _, url := range urls {
-		file.Write([]byte(url + "\r\n"))
+	for _, item := range items {
+		file.Write([]byte(item.Title + "\r\n" + item.Url + "\r\n"))
 	}
 }
 
-func readFromStorage() []string {
+func readFromStorage() []Search_Item {
 	file, err := os.Open("storage.txt")
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
-	var urls []string
-	var url string
-	for {
-		_, err := fmt.Fscanln(file, &url)
-		if err != nil {
-			break
-		}
-		urls = append(urls, url)
+
+	scanner := bufio.NewScanner(file)
+	var items []Search_Item
+	var url, title string
+	for scanner.Scan() {
+		title = scanner.Text()
+		scanner.Scan()
+		url = scanner.Text()
+		items = append(items, Search_Item{title, url})
 	}
-	return urls
+	return items
 }

@@ -66,8 +66,8 @@ func (c *CLI_Client) CLI_ClientStart() {
 		response := get_request(address)
 		results := parse_search_results(response.Body, SEARCH_SIZE)
 		for i, result := range results {
-			if result != "" {
-				fmt.Printf("%d) %s\n", i+1, result)
+			if result.Url != "" {
+				fmt.Printf("%d) %s\n\t%s\n", i+1, result.Title, result.Url)
 			}
 		}
 		saveToStorage(results)
@@ -76,6 +76,7 @@ func (c *CLI_Client) CLI_ClientStart() {
 		if c.access_nr > len(memory) || c.access_nr < 1 {
 			log.Fatal("invalid number")
 		}
-		browser.OpenURL(memory[c.access_nr-1])
+		fmt.Printf("Opening %s\n", memory[c.access_nr-1].Url)
+		browser.OpenURL(memory[c.access_nr-1].Url)
 	}
 }

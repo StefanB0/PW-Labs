@@ -9,6 +9,11 @@ import (
 	"golang.org/x/net/html"
 )
 
+type Search_Item struct {
+	Title string
+	Url   string
+}
+
 const (
 	text_tags = "p a li span h1 h2 h3 h4 h5 h6 strong em b i"
 )
@@ -55,9 +60,9 @@ func parse_html(body string) string {
 	}
 }
 
-func parse_search_results(body string, n int) []string {
+func parse_search_results(body string, n int) []Search_Item {
 	z := html.NewTokenizer(strings.NewReader(body))
-	results := make([]string, n)
+	results := make([]Search_Item, n)
 	count := 0
 	for count < n {
 		tt := z.Next()
@@ -66,15 +71,18 @@ func parse_search_results(body string, n int) []string {
 			return results
 		case tt == html.StartTagToken:
 			t := z.Token()
-			if t.Data == "a" {
-				for _, a := range t.Attr {
-					if a.Key == "class" && a.Val == "result__url" {
-						z.Next()
-						url := strings.Trim(string(z.Text()), " \t\r\n")
-						results[count] = url
-						count++
-					}
-				}
+			if t.Data == "h2" && t.Attr[0].Val == "result__title" {
+				z.Next()
+				z.Next()
+				z.Next()
+				title := strings.Trim(string(z.Text()), " \t\r\n")
+				results[count].Title = title
+			}
+			if t.Data == "a" && t.Attr[0].Val == "result__url" {
+				z.Next()
+				url := strings.Trim(string(z.Text()), " \t\r\n")
+				results[count].Url = url
+				count++
 			}
 		}
 	}
