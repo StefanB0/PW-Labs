@@ -1,0 +1,215 @@
+/* General */
+:root {
+  --prime-color: #5b34ea;
+	--button-hover: rgba(0, 0, 0, 0.2);
+}
+
+.to-do-app {
+  margin: 8em auto auto;
+  max-width: 800px;
+}
+
+.icon {
+  width: 30px;
+  height: 30px;
+	filter: invert(20%) sepia(89%) saturate(5702%) hue-rotate(253deg) brightness(94%) contrast(95%);
+}
+
+/* Background */
+.cogs-background-1 {
+	height: 20em;
+	width: 20em;
+	position: fixed;
+	bottom: 0;
+	right: 0;
+}
+
+.cogs-background-2 {
+	height: 20em;
+	width: 20em;
+	position: fixed;
+	top: 2em;
+	left: 0;
+	transform: rotate(135deg);
+}
+
+/* Navbar */
+nav {
+  padding-top: 1em;
+  position: relative;
+}
+
+nav > .menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+nav .menu button {
+  display: flex;
+  align-items: center;
+  padding: 0.3em;
+  border-radius: 50%;
+  background-color: inherit;
+}
+
+.nav-button:focus,
+.nav-button:active,
+.nav-button:visited,
+.nav-button:hover {
+  box-shadow: none;
+}
+
+.nav-button:hover {
+  background-color: var(--button-hover);
+}
+
+/* App Body */
+
+.app-body {
+  padding: 1em;
+  min-height: 600px;
+}
+
+/* App Header */
+
+.app-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.2em;
+}
+
+.app-header > h2 {
+  padding: 0 0 0 0.5em;
+  margin: 0;
+  line-height: normal;
+	color: var(--prime-color);
+}
+
+.app-header > .menu {
+  margin-right: 1em;
+}
+
+.clear-button:hover,
+.clear-button:focus,
+.clear-button:active,
+.clear-button:visited {
+  box-shadow: none;
+}
+
+.clear-button {
+  color: initial;
+  background-color: inherit;
+  padding: 0 0.1em;
+  margin: 0;
+  box-shadow: none;
+  font-size: 1.25em;
+}
+
+.clear-button:hover {
+  color: var(--prime-color);
+  text-decoration: underline;
+  text-decoration-color: var(--prime-color);
+}
+
+.clear-button.selected {
+  color: var(--prime-color);
+  text-decoration: underline;
+  text-decoration-color: var(--prime-color);
+}
+
+/* Input */
+
+.input-area {
+  display: flex;
+  align-items: center;
+}
+
+.input-area input {
+  border-radius: 0.5em;
+  height: 3em;
+}
+
+.input-area button {
+	padding: 0.4em;
+  margin: 0;
+  border-radius: 50%;
+  background-color: transparent;
+  display: flex;
+  align-items: center;
+}
+
+.input-area button:focus,
+.input-area button:active,
+.input-area button:visited,
+.input-area button:hover {
+  box-shadow: none;
+}
+
+.input-area button:hover {
+  /* background-color: var(--button-hover) */
+}
+
+/* App list */
+
+.app-list {
+	margin-top: 1em;
+}
+
+.app-list .item {
+  height: 3em;
+  margin-top: 0.5em;
+	padding: 0 0.5em;
+  display: flex;
+  align-items: center;
+}
+
+.app-list .item button {
+  display: flex;
+  align-items: center;
+}
+
+.app-list .item button.clear-button {
+	background-color: transparent;
+	border-radius: 50%;
+	padding: 0.25em;
+}
+
+/* .app-list .item button.clear-button:hover {
+	background-color: var(--button-hover)
+} */
+
+.app-list .checkbox {
+	position: relative;
+	overflow: hidden;
+	border: 3px solid black;
+	height: 25px;
+	width: 25px;
+	margin-right: 0.5em;
+}
+
+.app-list .checkbox:hover {
+	cursor: pointer;
+}
+
+.app-list .checkbox img {
+	height: 25px;
+	width: 25px;
+	filter: none;
+	position: absolute;
+	margin: auto;
+	top: -10px;
+	bottom: -10px;
+	left: -10px;
+	right: -10px;
+}
+
+.item.checked {
+	box-shadow: inset 0 0 0 30px rgba(0, 0, 0, 0.2);
+}
+
+/* DEV */
+.test-border {
+  border: 1px solid red;
+}

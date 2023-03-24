@@ -1,13 +1,59 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NAME, SURNAME, GROUP</title> <!-- CHANGE THESE VALUES -->
-    <link rel="stylesheet" href="style.css">
-    <script src="app.js" defer></script>
-  </head>
-  <body>
-    <!-- ADD YOUR CODE HERE -->
-  </body>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>FAF-203, Boicu Stefan</title> <!-- CHANGE THESE VALUES -->
+		<link rel="stylesheet" href="node_modules/colors.css/css/colors.css">
+		<link rel="stylesheet" href="node_modules/picnic/picnic.css">
+		<link rel="stylesheet" href="style/style.css">
+		<script src="app.js" defer></script>
+	</head>
+	<body class="bg-white">
+		<img class="cogs-background-1" src="assets/cogs.png">
+		<img class="cogs-background-2" src="assets/cogs.png">
+		<nav>
+			<div class="brand">
+				<h1>SIGMA GRINDSET</h1>
+			</div>
+			<div class="menu">
+				<button class="nav-button"><img class="icon" src="assets/icons/download-icon.svg"></button>
+				<button class="nav-button"><img class="icon" src="assets/icons/upload_icon.svg"></button>
+			</div>
+		</nav>
+		<main>
+			<div class="to-do-app">
+				<div class="app-header">
+					<h2>To Do</h2>
+					<div class="menu">
+						<button class="clear-button">&nbsp;All&nbsp;</button>
+						<button class="clear-button">&nbsp;To Do&nbsp;</button>
+						<button class="clear-button">&nbsp;Finished&nbsp;</button>
+					</div>
+				</div>
+				<div class="app-body bg-silver">
+					<div class="input-area">
+						<input placeholder="New Task">
+						<button><img class="icon" src="assets/icons/add-icon.svg"></button>
+					</div>
+					<div class="app-list">
+						<div class="item bg-white">
+							<div class="checkbox"></div>
+							<div class="text" style="flex: 1;">Grind Grind and Grind again</div>
+							<button class="clear-button"><img class="icon" src="assets/icons/bell-icon.svg"></button>
+							<button class="clear-button"><img class="icon" src="assets/icons/delete-icon.svg"></button>
+						</div>
+						<div class="item checked bg-white">
+							<div class="checkbox"><img class="icon" src="assets/icons/done_thick-icon.svg"/></div>
+							<div class="text" style="flex: 1;">Grind Grind and Grind again</div>
+							<button class="clear-button"><img class="icon" src="assets/icons/delete-icon.svg"></button>
+						</div>
+						<div class="item"></div>
+						<div class="item"></div>
+						<div class="item"></div>
+					</div>
+				</div>
+			</div>
+		</main>
+	</body>
 </html>
