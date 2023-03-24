@@ -7,7 +7,7 @@
 		<link rel="stylesheet" href="node_modules/colors.css/css/colors.css">
 		<link rel="stylesheet" href="node_modules/picnic/picnic.css">
 		<link rel="stylesheet" href="style/style.css">
-		<script src="app.js" defer></script>
+		<script src="scripts/app.js" defer></script>
 	</head>
 	<body class="bg-white">
 		<img class="cogs-background-1" src="assets/cogs.png">
@@ -17,8 +17,8 @@
 				<h1>SIGMA GRINDSET</h1>
 			</div>
 			<div class="menu">
-				<button class="nav-button"><img class="icon" src="assets/icons/download-icon.svg"></button>
-				<button class="nav-button"><img class="icon" src="assets/icons/upload_icon.svg"></button>
+				<button class="nav-button"><img class="icon" id="export" src="assets/icons/download-icon.svg"></button>
+				<button class="nav-button"><img class="icon" id="import" src="assets/icons/upload_icon.svg"></button>
 			</div>
 		</nav>
 		<main>
@@ -26,27 +26,27 @@
 				<div class="app-header">
 					<h2>To Do</h2>
 					<div class="menu">
-						<button class="clear-button">&nbsp;All&nbsp;</button>
-						<button class="clear-button">&nbsp;To Do&nbsp;</button>
-						<button class="clear-button">&nbsp;Finished&nbsp;</button>
+						<button class="clear-button" id="display-all">&nbsp;All&nbsp;</button>
+						<button class="clear-button" id="display-unfinished">&nbsp;To Do&nbsp;</button>
+						<button class="clear-button" id="display-finished">&nbsp;Finished&nbsp;</button>
 					</div>
 				</div>
 				<div class="app-body bg-silver">
 					<div class="input-area">
 						<input placeholder="New Task">
-						<button><img class="icon" src="assets/icons/add-icon.svg"></button>
+						<button id="add-task"><img class="icon" src="assets/icons/add-icon.svg"></button>
 					</div>
 					<div class="app-list">
 						<div class="item bg-white">
 							<div class="checkbox"></div>
-							<div class="text" style="flex: 1;">Grind Grind and Grind again</div>
+							<div class="text">Grind Grind and Grind again</div>
 							<button class="clear-button"><img class="icon" src="assets/icons/bell-icon.svg"></button>
-							<button class="clear-button"><img class="icon" src="assets/icons/delete-icon.svg"></button>
+							<button class="clear-button"><img class="icon danger" src="assets/icons/delete-icon.svg"></button>
 						</div>
 						<div class="item checked bg-white">
 							<div class="checkbox"><img class="icon" src="assets/icons/done_thick-icon.svg"/></div>
 							<div class="text" style="flex: 1;">Grind Grind and Grind again</div>
-							<button class="clear-button"><img class="icon" src="assets/icons/delete-icon.svg"></button>
+							<button class="clear-button"><img class="icon danger" src="assets/icons/delete-icon.svg"></button>
 						</div>
 						<div class="item"></div>
 						<div class="item"></div>

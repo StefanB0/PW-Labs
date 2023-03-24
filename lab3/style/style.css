@@ -1,7 +1,9 @@
 /* General */
 :root {
   --prime-color: #5b34ea;
+	--prime-color-filter: brightness(0) saturate(100%) invert(13%) sepia(82%) saturate(5202%) hue-rotate(255deg) brightness(107%) contrast(88%);
 	--button-hover: rgba(0, 0, 0, 0.2);
+	--danger-color-filter: brightness(0) saturate(100%) invert(31%) sepia(94%) saturate(7486%) hue-rotate(356deg) brightness(97%) contrast(116%);
 }
 
 .to-do-app {
@@ -12,7 +14,11 @@
 .icon {
   width: 30px;
   height: 30px;
-	filter: invert(20%) sepia(89%) saturate(5702%) hue-rotate(253deg) brightness(94%) contrast(95%);
+	filter: var(--prime-color-filter)
+}
+
+.icon.danger {
+	filter: var(--danger-color-filter);
 }
 
 /* Background */
@@ -22,6 +28,7 @@
 	position: fixed;
 	bottom: 0;
 	right: 0;
+	z-index: -1;
 }
 
 .cogs-background-2 {
@@ -31,12 +38,44 @@
 	top: 2em;
 	left: 0;
 	transform: rotate(135deg);
+	z-index:-1;
+}
+
+@media (max-width: 1600px) {
+	html {
+		font-size: 0.8em;
+	}
+
+	.to-do-app {
+		margin: 6em auto auto;
+	}
+}
+
+@media (max-width: 1100px) {
+	.cogs-background-1, .cogs-background-2 {
+		display: none;
+	}
+
+	.to-do-app {
+		margin: 4em auto auto;
+	}
+}
+
+@media (max-width: 800px) {
+	html {
+		font-size: 0.8em;
+	}
+
+	.to-do-app {
+		margin: 4em 2em;
+	}
 }
 
 /* Navbar */
 nav {
-  padding-top: 1em;
+  padding: 1em 0;
   position: relative;
+	box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2);
 }
 
 nav > .menu {
@@ -68,7 +107,7 @@ nav .menu button {
 
 .app-body {
   padding: 1em;
-  min-height: 600px;
+  min-height: 35em;
 }
 
 /* App Header */
@@ -147,10 +186,6 @@ nav .menu button {
   box-shadow: none;
 }
 
-.input-area button:hover {
-  /* background-color: var(--button-hover) */
-}
-
 /* App list */
 
 .app-list {
@@ -165,6 +200,10 @@ nav .menu button {
   align-items: center;
 }
 
+.app-list .item .text {
+	flex: 1;
+}
+
 .app-list .item button {
   display: flex;
   align-items: center;
@@ -175,10 +214,6 @@ nav .menu button {
 	border-radius: 50%;
 	padding: 0.25em;
 }
-
-/* .app-list .item button.clear-button:hover {
-	background-color: var(--button-hover)
-} */
 
 .app-list .checkbox {
 	position: relative;
@@ -203,6 +238,7 @@ nav .menu button {
 	bottom: -10px;
 	left: -10px;
 	right: -10px;
+	filter: var(--prime-color-filter);
 }
 
 .item.checked {
