@@ -4,13 +4,13 @@
 		<meta charset="UTF-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 		<title>FAF-203, Boicu Stefan</title> <!-- CHANGE THESE VALUES -->
+		<link rel="icon" type="image/x-icon" href="/assets/favicon.png">
 		<link rel="stylesheet" href="node_modules/colors.css/css/colors.css">
 		<link rel="stylesheet" href="node_modules/picnic/picnic.css">
 		<link rel="stylesheet" href="style/style.css">
 		<script src="scripts/app.js" defer></script>
 	</head>
 	<body class="bg-white">
-		<img class="cogs-background-1" src="assets/cogs.png">
 		<img class="cogs-background-2" src="assets/cogs.png">
 		<nav>
 			<div class="brand">
@@ -19,6 +19,7 @@
 			<div class="menu">
 				<button class="nav-button"><img class="icon" id="export" src="assets/icons/download-icon.svg"></button>
 				<button class="nav-button"><img class="icon" id="import" src="assets/icons/upload_icon.svg"></button>
+				<button class="nav-button"><img class="icon danger" id="delete-all" src="assets/icons/delete-all.svg"></button>
 			</div>
 		</nav>
 		<main>
@@ -33,24 +34,21 @@
 				</div>
 				<div class="app-body bg-silver">
 					<div class="input-area">
-						<input placeholder="New Task">
+						<input id="new-task-input" placeholder="New Task">
 						<button id="add-task"><img class="icon" src="assets/icons/add-icon.svg"></button>
 					</div>
 					<div class="app-list">
-						<div class="item bg-white">
+						<div class="item bg-white" style="display: none;">
 							<div class="checkbox"></div>
-							<div class="text">Grind Grind and Grind again</div>
-							<button class="clear-button"><img class="icon" src="assets/icons/bell-icon.svg"></button>
+							<div class="text"><p>Grind Grind and Grind again<p></div>
+								<button class="clear-button"><img class="icon" src="assets/icons/bell-icon.svg"></button>
 							<button class="clear-button"><img class="icon danger" src="assets/icons/delete-icon.svg"></button>
 						</div>
-						<div class="item checked bg-white">
+						<div class="item checked bg-white" style="display: none;">
 							<div class="checkbox"><img class="icon" src="assets/icons/done_thick-icon.svg"/></div>
-							<div class="text" style="flex: 1;">Grind Grind and Grind again</div>
+							<div class="text"><p>Already grinded<p></div>
 							<button class="clear-button"><img class="icon danger" src="assets/icons/delete-icon.svg"></button>
 						</div>
-						<div class="item"></div>
-						<div class="item"></div>
-						<div class="item"></div>
 					</div>
 				</div>
 			</div>
