@@ -8,9 +8,12 @@ module.exports = {
     extend: {
       colors: {
         "primary": "#1d3557",
-        "secondary": "#24416b", //"#1f385c",
-        "tertiary": "#24416b",
+        "secondary": "#24416b",
+        "tertiary": "#8da7be",
         "accent-green": "#7bd389"
+      },
+      lineHeight: {
+        12: "3rem",
       }
     },
   },

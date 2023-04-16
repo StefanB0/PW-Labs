@@ -8,10 +8,10 @@
         <div class="mb-4 rounded-md shadow-sm">
           <div class="flex justify-between w-full mt-4">
             <input id="name" type="text"
-              class="border-2 border-slate-500 rounded-md py-1.5 pl-3 bg-secondary text-white placeholder:text-slate-400 outline-none focus-visible:border-sky-500"
+              class="border-2 border-slate-500 rounded-md py-1.5 pl-3 bg-secondary text-white placeholder:text-slate-400 outline-none focus-visible:border-indigo-600"
               placeholder="Name" />
             <input id="surname" type="text"
-              class="border-2 border-slate-500 rounded-md py-1.5 pl-3 bg-secondary text-white placeholder:text-slate-400 outline-none focus-visible:border-sky-500"
+              class="border-2 border-slate-500 rounded-md py-1.5 pl-3 bg-secondary text-white placeholder:text-slate-400 outline-none focus-visible:border-indigo-600"
               placeholder="Surname" />
           </div>
         </div>
@@ -29,5 +29,3 @@
     </div>
   </div>
 </template>
-
-<script></script>
