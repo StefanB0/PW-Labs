@@ -19,12 +19,9 @@ export default {
 	},
 	created() {
 		this.getUser();
-		this.getQuizzes();
 	},
 	data() {
 		return {
-			// quizCards: [] as QuizCardInterface[],
-			// quizzes: [] as any,
 			user: {} as UserInterface,
 		};
 	},
@@ -38,33 +35,6 @@ export default {
 
 			this.user = data as UserInterface;
 		},
-
-		async getQuizzes() {
-			// Get quizzes from API
-			let res = await fetch('/mockQuiz.json');
-			let data = await res.json() as QuizInterface[];
-			// Map quizzes to quiz cards
-
-			// this.quizzes = data;
-			// this.quizCards = this.quizzes.map((quiz: { id: number; title: string; questions: string[]; }) => {
-			// 	return {
-			// 		id: quiz.id,
-			// 		title: quiz.title,
-			// 		questionCount: quiz.questions.length,
-			// 	}
-			// }) as QuizCardInterface[];
-			console.log(data);
-			data.forEach((quiz) => {
-				console.log(quiz);
-				this.addQuiz({
-					id: quiz.id,
-					title: quiz.title,
-					questions: quiz.questions,
-					finished: false,
-				});
-			});
-		},
-		...mapActions(quizStore, ['addQuiz']),
 	}
 };
 </script>
@@ -89,8 +59,8 @@ export default {
 				</router-link>
 			</div>
 			<div class="mt-8 mb-20 flex flex-col w-full items-center">
-				<div v-for="item in quizCards" class="py-3 bg-secondary w-full max-w-3xl rounded-md">
-					<Card :quiz-card="item" />
+				<div v-for="(item, index) in quizCards" class="py-3 bg-secondary w-full max-w-3xl rounded-md">
+					<Card :quiz-card="item" :index="index" />
 				</div>
 			</div>
 		</div>
@@ -102,7 +72,6 @@ export default {
 <!-- TODO Add Score to finished quizzes. If more than 50% of questions are answered correctly the score is green, if less the text is red -->
 <!-- TODO Disable hover and links for finished quizzes -->
 <!-- TODO Generate a list of 10 quizzes with questions and answers then populate the API -->
-<!-- TODO Make dynamic route to /user -->
 <!-- TODO Make dynamic routes for each quiz /user/quiz-name -->
 <!-- TODO Add button to reset all quizzes -->
 <!-- TODO Mute color of inactive quizzes -->
