@@ -1,0 +1,46 @@
+[
+	{
+		"id": 1,
+		"title": "On the life of penguins",
+		"questions": [
+			{
+				"id": 1,
+				"question": "What is the smallest species of penguin?",
+				"answers": ["Emperor Penguin", "Little Blue Penguin", "King Penguin"],
+				"correctAnswer": "Little Blue Penguin"
+			},
+			{
+				"id": 2,
+				"question": "What do penguins eat?",
+				"answers": ["Only fish", "Only krill", "Both fish and krill"],
+				"correctAnswer": "Both fish and krill"
+			},
+			{
+				"id": 3,
+				"question": "What is the purpose of the unique black and white coloring of penguins?",
+				"answers": [
+					"To attract mates",
+					"To help them blend in with their environment",
+					"To communicate with other penguins"
+				],
+				"correctAnswer": "To help them blend in with their environment"
+			},
+			{
+				"id": 4,
+				"question": "What is the largest species of penguin?",
+				"answers": ["Emperor Penguin", "Gentoo Penguin", "African Penguin"],
+				"correctAnswer": "Emperor Penguin"
+			},
+			{
+				"id": 5,
+				"question": "How do penguins keep their eggs warm?",
+				"answers": [
+					"By sitting on them with their feet",
+					"By holding them in their beak",
+					"By wrapping them in seaweed"
+				],
+				"correctAnswer": "By sitting on them with their feet"
+			}
+		]
+	}
+]
