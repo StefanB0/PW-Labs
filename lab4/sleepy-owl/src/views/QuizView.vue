@@ -48,3 +48,10 @@ export default {
 
 	</div>
 </template>
+
+<!-- TODO Make dynamic routes for each quiz subsection /user/quiz-name/1 -->
+<!-- TODO Split quizzes in groups of five questions -->
+<!-- TODO Navigate groups with arrow buttons -->
+<!-- TODO Disable left and write button when at the end -->
+<!-- TODO Disable finish button unless all questions are answered -->
+<!-- TODO Add button to leave quiz -->

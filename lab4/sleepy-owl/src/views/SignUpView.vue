@@ -29,3 +29,6 @@
     </div>
   </div>
 </template>
+
+<!-- TODO Hook links -->
+<!-- TODO Save user in local storage and in cookies -->

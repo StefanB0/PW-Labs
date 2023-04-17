@@ -58,3 +58,13 @@ export default {
     </div>
   </main>
 </template>
+
+<!-- TODO Add delete SVG button in the top right corner to delete account -->
+<!-- TODO Hook to API -->
+<!-- TODO Add Score to finished quizzes. If more than 50% of questions are answered correctly the score is green, if less the text is red -->
+<!-- TODO Disable hover and links for finished quizzes -->
+<!-- TODO Generate a list of 10 quizzes with questions and answers then populate the API -->
+<!-- TODO Make dynamic route to /user -->
+<!-- TODO Make dynamic routes for each quiz /user/quiz-name -->
+<!-- TODO Add button to reset all quizzes -->
+<!-- TODO Mute color of inactive quizzes -->

@@ -29,3 +29,7 @@
     </div>
   </div>
 </template>
+
+<!-- TODO Hook links -->
+<!-- TODO Redirect here if not logged in -->
+<!-- TODO Do not redirect from Sign-up -->
