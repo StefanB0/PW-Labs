@@ -33,7 +33,7 @@ export default {
 </script>
 
 <template>
-	<div class="bg-primary border-2 w-full px-5 py-2">
+	<div class="bg-primary border-2 w-full px-5 py-2 rounded-lg">
 		<p> Question {{ questionNumber }}</p>
 		<p>{{ question.body }}</p>
 		<div v-for="(answer, index) in question.answers" class="m-2">

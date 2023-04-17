@@ -52,7 +52,7 @@ export default {
       </router-link>
     </div>
     <div class="mt-8 mb-20 flex flex-col w-full items-center">
-      <div v-for="item in items" class="py-3 bg-secondary w-full max-w-3xl">
+      <div v-for="item in items" class="py-3 bg-secondary w-full max-w-3xl rounded-md">
         <Card :quiz-card="item" />
       </div>
     </div>
