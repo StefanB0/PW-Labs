@@ -58,8 +58,8 @@ export default {
 					<IconLogOut class="mt-1 ml-2 relative" />
 				</router-link>
 			</div>
-			<div class="mt-8 mb-20 flex flex-col w-full items-center">
-				<div v-for="(item, index) in quizCards" class="py-3 bg-secondary w-full max-w-3xl rounded-md">
+			<div class="mt-8 mb-20 flex flex-col w-full max-w-3xl items-center rounded-md bg-secondary">
+				<div v-for="(item, index) in quizCards" class="py-3 w-full">
 					<Card :quiz-card="item" :index="index" />
 				</div>
 			</div>

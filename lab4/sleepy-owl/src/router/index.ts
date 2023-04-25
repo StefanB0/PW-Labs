@@ -3,6 +3,7 @@ import HomeView from "../views/HomeView.vue"
 import SignUpView from "../views/SignUpView.vue"
 import LogInView from "../views/LogInView.vue"
 import QuizView from "../views/QuizView.vue"
+import QuizFinView from "@/views/QuizFinView.vue"
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,16 +24,15 @@ const router = createRouter({
 			component: SignUpView,
 		},
 		{
-			path: "/quiz",
-			name: "Quiz",
-			// component: QuizView,
-			component: () => import("../views/QuizView.vue"),
-		},
-		{
 			path: "/quiz/:quizId",
 			name: "Quiz",
-			// component: QuizView,
-			component: () => import("../views/QuizView.vue"),
+			component: QuizView,
+			props: true,
+		},
+		{
+			path: "/quiz/:quizId/results",
+			name: "QuizResults",
+			component: QuizFinView,
 			props: true,
 		},
 	],
