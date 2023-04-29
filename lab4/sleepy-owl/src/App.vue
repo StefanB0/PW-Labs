@@ -1,24 +1,48 @@
 <script setup lang="ts">
-import { onMounted } from 'vue';
 import { RouterView } from 'vue-router';
-import { quizStore, type QuizInterface } from './stores/quizStore';
+import { userStore, type UserInterface } from './stores/userStore';
+import { getUsers } from './assets/scripts/server-api';
+import { onBeforeMount, watch } from 'vue';
+import router from './router/index';
+import { quizStoreV2 } from './stores/quizStore';
 
-const quizzes = quizStore();
+const quizStorage = quizStoreV2();
+const userStorage = userStore();
 
-onMounted(async () => {
-	let res = await fetch('/mockQuiz.json');
-	let data = await res.json() as QuizInterface[];
+watch(() => userStorage.currentUser, (newUser: UserInterface) => {
+	localStorage.setItem('currentUser', JSON.stringify(newUser));
+});
+watch(() => userStorage.isAuth, (newAuth: boolean) => {
+	localStorage.setItem('isAuth', JSON.stringify(newAuth));
+});
+watch(() => quizStorage.quizzes, (newQuizzes) => {
+	localStorage.setItem('quizzes', JSON.stringify(newQuizzes));
+}, { deep: true });
+watch(() => quizStorage.quizReviews, (newReviews) => {
+	localStorage.setItem('quizReviews', JSON.stringify(newReviews));
+}, { deep: true });
 
-	data.forEach((quiz) => {
-		quizzes.addQuiz({
-			id: quiz.id,
-			title: quiz.title,
-			questions: quiz.questions,
-			finished: false,
-		});
+onBeforeMount(async () => {
+	let users = await getUsers();
+	users.forEach((user) => {
+		userStorage.addUser(user);
 	});
 });
 
+router.beforeEach((to, _from) => {
+	if (!userStorage.isAuth) {
+		if (to.name !== 'LogIn' && to.name !== 'SignUp') {
+			console.log(to.name);
+			return 'log-in';
+		}
+	}
+
+	if (router.hasRoute(to.name as string)) {
+		return true;
+	}
+
+	return '/';
+})
 </script>
 
 <template>

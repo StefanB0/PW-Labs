@@ -1,11 +1,11 @@
 import type { UserInterface } from "@/stores/userStore"
 import type {
-	QuestionFull,
+	QuestionPrototype,
 	QuizPreview,
 	QuizFull,
 	QuestionPreview,
-	QuizResponse,
-	QuizAnswer,
+	QuestionResponse,
+	QuestionAnswer,
 } from "@/stores/quizStore"
 
 import axios from "axios"
@@ -30,7 +30,9 @@ export async function getUsers(): Promise<UserInterface[]> {
 		})
 		.catch((error) => {
 			const err_flag = "Get user error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 
 	return users as UserInterface[]
@@ -50,11 +52,18 @@ export async function createUser(
 	await axios
 		.post(userUrl, { data }, config)
 		.then((response) => {
-			user = response.data
+			if (response.data.message) {
+				user = {} as UserInterface
+				console.log(response.data.message)
+			} else {
+				user = response.data
+			}
 		})
 		.catch((error) => {
 			const err_flag = "Create user error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 
 	return user
@@ -68,7 +77,9 @@ export async function deleteUser(userId: number) {
 		})
 		.catch((error) => {
 			const err_flag = "Delete user error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 }
 
@@ -82,7 +93,9 @@ export async function getQuizzes(): Promise<QuizPreview[]> {
 		})
 		.catch((error) => {
 			const err_flag = "Get quizzes error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 
 	return quizzes
@@ -97,7 +110,9 @@ export async function getQuiz(quizId: number): Promise<QuizFull> {
 		})
 		.catch((error) => {
 			const err_flag = "Get quiz error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 
 	return quiz
@@ -105,9 +120,9 @@ export async function getQuiz(quizId: number): Promise<QuizFull> {
 
 export async function submitQuizAnswer(
 	quiz_id: number,
-	response: QuizResponse
-): Promise<QuizAnswer> {
-	let answer: QuizAnswer = {} as QuizAnswer
+	response: QuestionResponse
+): Promise<QuestionAnswer> {
+	let answer: QuestionAnswer = {} as QuestionAnswer
 	let data = response
 	await axios
 		.post(quizUrl + quiz_id + "/submit", { data }, config)
@@ -116,7 +131,9 @@ export async function submitQuizAnswer(
 		})
 		.catch((error) => {
 			const err_flag = "Submit quiz error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 
 	return answer
@@ -124,7 +141,7 @@ export async function submitQuizAnswer(
 
 export async function createQuiz(
 	title: string,
-	questions: QuestionFull[]
+	questions: QuestionPrototype[]
 ): Promise<QuizPreview> {
 	let data = {
 		title: title,
@@ -140,7 +157,9 @@ export async function createQuiz(
 		})
 		.catch((error) => {
 			const err_flag = "Create quiz error: "
-			console.log(err_flag + error.response.data.message + " | " + error.message)
+			console.log(
+				err_flag + error.response.data.message + " | " + error.message
+			)
 		})
 
 	return quiz
@@ -159,43 +178,3 @@ export async function deleteQuiz(quizId: number) {
 			)
 		})
 }
-
-export async function testAPI() {
-	//? User API
-	// const users = await getUsers()
-	// console.log(users)
-
-	// const user = await createUser("Ali", "Baba")
-	// console.log(user)
-
-	// await deleteUser(user.id)
-
-	//? QuizAPI
-	// const quizzes = await getQuizzes()
-	// console.log(quizzes)
-
-	// const quiz = await getQuiz(7)
-	// console.log(quiz)
-
-	// const questions: QuestionFull[] = [
-	// 	{
-	// 		question: "How many arms do Octopus have?",
-	// 		answers: ["1", "2", "3", "4", "8"],
-	// 		correct_answer: "8",
-	// 	} as QuestionFull,
-	// ]
-	// const newQuiz = await createQuiz("Awesome Quiz 5", questions)
-	// console.log(newQuiz)
-
-	// await deleteQuiz(newQuiz.id)
-
-	// const response: QuizResponse = {
-	// 	question_id: 636,
-	// 	answer: "8",
-	// 	user_id: 287
-	// }
-	// const answer = await submitQuizAnswer(191, response)
-	// console.log(answer)
-}
-
-// TODO delete the test above

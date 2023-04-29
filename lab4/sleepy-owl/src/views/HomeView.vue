@@ -1,15 +1,15 @@
 <script lang="ts">
-import { RouterLink } from 'vue-router';
-import { mapActions, mapState } from 'pinia';
-import { quizStore } from '@/stores/quizStore';
+import type { QuizInterfaceV2, QuizPreview } from '@/stores/quizStore';
+import { mapStores } from 'pinia';
 
-import type { UserInterface } from '@/stores/userStore';
-import type { QuizInterface } from '@/stores/quizStore';
-import type { QuizCardInterface } from '@/stores/quizStore';
+import { userStore, type UserInterface } from '@/stores/userStore';
 
-import Card from '@/components/quiz/quiz-card.vue';
-import IconLogOut from '@/components/icons/IconLogOut.vue';
+import { deleteUser, getQuiz, getQuizzes } from '@/assets/scripts/server-api';
 import IconDeleteForever from '@/components/icons/IconDeleteForever.vue';
+import IconLogOut from '@/components/icons/IconLogOut.vue';
+import Card from '@/components/quiz/quiz-card.vue';
+import type { QuizFull } from '@/stores/quizStore';
+import { quizStoreV2 } from '../stores/quizStore';
 
 export default {
 	components: {
@@ -19,6 +19,7 @@ export default {
 	},
 	created() {
 		this.getUser();
+		this.fetchQuizzes();
 	},
 	data() {
 		return {
@@ -26,22 +27,61 @@ export default {
 		};
 	},
 	computed: {
-		...mapState(quizStore, ['quizzes', 'quizCards'])
+		...mapStores(quizStoreV2, userStore),
+		quizArray(): QuizInterfaceV2[] {
+			return this.quizStoreV2Store.quizzes;
+		},
 	},
 	methods: {
-		async getUser() {
-			let res = await fetch('/mockUser.json');
-			let data = await res.json();
-
-			this.user = data as UserInterface;
+		getUser() {
+			this.user = this.userStoreStore.currentUser;
 		},
-	}
-};
+		async fetchQuizzes() {
+			let quizPreviews = await getQuizzes();
+
+			let quizArray = quizPreviews.map(async (quiz: QuizPreview) => {
+				let quizFull: QuizFull = await getQuiz(quiz.id);
+				return {
+					id: quizFull.id,
+					title: quizFull.title,
+					question_count: quizFull.questions.length,
+					question_array: quizFull.questions,
+					finished: false,
+					score: 0,
+				} as QuizInterfaceV2;
+			});
+
+			quizArray.forEach(async (quiz) => {
+				this.quizStoreV2Store.addQuiz(await quiz);
+			});
+		},
+		logOut() {
+			this.userStoreStore.changeUser({ name: "", surname: "", id: 0 } as UserInterface);
+			this.userStoreStore.isAuth = false;
+			this.resetQuizzes();
+			this.$router.push('/log-in');
+		},
+		deleteAccount() {
+			let confirm = window.confirm('Are you sure you want to delete your account?');
+			if (!confirm) return;
+			
+			this.userStoreStore.deleteUser(this.user.id);
+			deleteUser(this.user.id);
+			this.userStoreStore.isAuth = false;
+			this.resetQuizzes();
+			this.$router.push('/log-in');
+		},
+		resetQuizzes() {
+			this.quizStoreV2Store.resetQuizzes();
+			this.quizStoreV2Store.quizReviews = [];
+		}
+	},
+}
 </script>
 
 <template>
 	<main>
-		<button id="btn-delete-account">
+		<button id="btn-delete-account" @click.prevent="deleteAccount">
 			<IconDeleteForever class="absolute right-5 top-5" />
 		</button>
 		<div class="flex flex-col items-center">
@@ -54,24 +94,17 @@ export default {
 			</div>
 			<div class="mt-10 flex items-center py-2 h-16">
 				<h1 class="text-3xl font-bold"> User: {{ user.name }} {{ user.surname }} </h1>
-				<router-link to="/log-in">
+				<div @click="logOut">
 					<IconLogOut class="mt-1 ml-2 relative" />
-				</router-link>
+				</div>				
 			</div>
 			<div class="mt-8 mb-20 flex flex-col w-full max-w-3xl items-center rounded-md bg-secondary">
-				<div v-for="(item, index) in quizCards" class="py-3 w-full">
-					<Card :quiz-card="item" :index="index" />
+				<div v-for="(quiz, index) in quizArray" class="py-3 w-full">
+					<Card :quiz="quiz" :index="index" />
 				</div>
 			</div>
 		</div>
 	</main>
 </template>
 
-<!-- TODO Add delete SVG button in the top right corner to delete account -->
-<!-- TODO Hook to API -->
-<!-- TODO Add Score to finished quizzes. If more than 50% of questions are answered correctly the score is green, if less the text is red -->
-<!-- TODO Disable hover and links for finished quizzes -->
 <!-- TODO Generate a list of 10 quizzes with questions and answers then populate the API -->
-<!-- TODO Make dynamic routes for each quiz /user/quiz-name -->
-<!-- TODO Add button to reset all quizzes -->
-<!-- TODO Mute color of inactive quizzes -->

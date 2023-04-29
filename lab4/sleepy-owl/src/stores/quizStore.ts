@@ -1,5 +1,13 @@
-import { ref, computed, type Ref } from "vue"
 import { defineStore } from "pinia"
+
+export interface QuizInterfaceV2 {
+	id: number
+	title: string
+	question_count: number
+	question_array: QuestionPreview[]
+	finished: boolean
+	score: number
+}
 
 export interface QuizPreview {
 	id: number
@@ -10,7 +18,7 @@ export interface QuizPreview {
 export interface QuizFull {
 	id: number
 	title: string
-	questions: []
+	questions: QuestionPreview[]
 }
 
 export interface QuestionPreview {
@@ -19,129 +27,93 @@ export interface QuestionPreview {
 	answers: string[]
 }
 
-export interface QuestionFull {
+export interface QuestionPrototype {
 	question: string
 	answers: string[]
 	correct_answer: string
 }
 
-export interface QuizResponse {
+export interface QuestionResponse {
 	question_id: number
 	answer: string
 	user_id: number
 }
 
-export interface QuizAnswer {
+export interface QuestionAnswer {
 	id: number
 	correct_answer: string
 	correct: boolean
 }
 
-export interface QuizInterface {
+export interface Review {
 	id: number
 	title: string
-	questions: QuestionInterface[]
-	answers?: string[]
-	finished?: boolean
+	question_count: number
+	question_array: ReviewQuestion[]
+	score: number
 }
 
-export interface QuizReviewInterface {
-	id: number
-	title: string
-	questions: QuestionReviewInterface[]
-}
-
-export interface QuestionReviewInterface {
+export interface ReviewQuestion {
 	id: number
 	question: string
 	answers: string[]
-	correctAnswer: string
-	selectedAnswer: string
+	correct_answer: string
+	selected_answer: string
 }
 
-export interface QuestionInterface {
-	id: number
-	question: string
-	answers: string[]
-	correctAnswer?: string
+let localQuizzes: QuizInterfaceV2[] = []
+if (localStorage.getItem("quizzes")) {
+	localQuizzes = JSON.parse(localStorage.getItem("quizzes") || "")
+}
+let localQuizReviews: Review[] = []
+if (localStorage.getItem("quizReviews")) {
+	localQuizReviews = JSON.parse(localStorage.getItem("quizReviews") || "")
 }
 
-export interface AnswerInterface {
-	question_id: number
-	answer: string
-	user_id: number
-	correct?: boolean
-}
-
-export interface QuizCardInterface {
-	id: number
-	title: string
-	questionCount: number
-	finished?: boolean
-	score?: number
-	maxScore?: number
-}
-
-export const quizStore = defineStore("quizStore", {
+export const quizStoreV2 = defineStore("quizStoreV2", {
 	state: () => ({
-		quizzes: [] as QuizInterface[],
-		answeredQuizzes: [] as QuizReviewInterface[],
-		quizCards: [] as QuizCardInterface[],
+		quizzes: localQuizzes,
+		quizReviews: localQuizReviews,
 	}),
-	getters: {
-		quizzesGet: (state) => {
-			return state.quizzes
-		},
-		quizCardsGet: (state) => {
-			return state.quizCards
-		},
-		getQuizById: (state) => (id: number) => {
-			return state.quizzes.find((q) => q.id === id)
-		},
-	},
 	actions: {
-		addQuiz(quiz: QuizInterface) {
-			if (this.quizzesGet.find((q) => q.id === quiz.id)) {
+		addQuiz(quiz: QuizInterfaceV2) {
+			if (this.quizzes.find((q) => q.id === quiz.id)) {
 				return
 			}
-			this.quizzesGet.push(quiz)
-			const quizcard: QuizCardInterface = {
-				id: quiz.id,
-				title: quiz.title,
-				questionCount: quiz.questions.length,
-				finished: quiz.finished,
-			}
-			this.quizCardsGet.push(quizcard)
+			this.quizzes.push(quiz)
 		},
-		addAnsweredQuiz(quiz: QuizReviewInterface) {
-			if (this.answeredQuizzes.find((q) => q.id === quiz.id)) {
+		addQuizReview(review: Review) {
+			if (this.quizReviews.find((q) => q.id === review.id)) {
 				return
 			}
-			this.answeredQuizzes.push(quiz)
+			this.quizReviews.push(review)
 		},
-		markQuizAsFinished(id: number) {
-			const quizIndex = this.quizzesGet.findIndex((q) => q.id === id)
+		updateQuiz(quiz: QuizInterfaceV2) {
+			const quizIndex = this.quizzes.findIndex((q) => q.id === quiz.id)
 			if (quizIndex !== -1) {
-				this.quizzesGet[quizIndex].finished = true
-			}
-			const quizCardIndex = this.quizCardsGet.findIndex((q) => q.id === id)
-			if (quizCardIndex !== -1) {
-				this.quizCardsGet[quizCardIndex].finished = true
+				this.quizzes[quizIndex] = quiz
 			}
 		},
-		updateQuizScore(id: number, score: number, maxScore: number) {
-			const quizCardIndex = this.quizCards.findIndex((q) => q.id === id)
-			if (quizCardIndex !== -1) {
-				this.quizCards[quizCardIndex].score = score
-				this.quizCards[quizCardIndex].maxScore = maxScore
+		finishQuiz(quizId: number, score: number) {
+			const quizIndex = this.quizzes.findIndex((q) => q.id === quizId)
+			if (quizIndex !== -1) {
+				this.quizzes[quizIndex].finished = true
+				this.quizzes[quizIndex].score = score
+			}
+		},
+		resetQuizzes() {
+			this.quizzes = this.quizzes.map((q) => {
+				q.finished = false
+				q.score = 0
+				return q
+			})
+		},
+		removeQuiz(quiz: QuizInterfaceV2) {
+			const quizIndex = this.quizzes.findIndex((q) => q.id === quiz.id)
+			if (quizIndex !== -1) {
+				this.quizzes.splice(quizIndex, 1)
 			}
 		},
 	},
 })
 
-// export const quizStore = defineStore("quizStore", () => {
-// 	const quizStore: Ref<QuizInterface[]> = ref([])
-// 	const quizCardStore: Ref<QuizCardInterface[]> = ref([])
-
-// 	return { quizStore, quizCardStore }
-// })

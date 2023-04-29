@@ -1,117 +1,116 @@
 <script lang="ts">
-import { mapActions, mapState } from "pinia";
-import { quizStore } from "@/stores/quizStore";
-
-import type { QuizInterface, QuestionInterface, AnswerInterface, QuizReviewInterface, QuestionReviewInterface } from "@/stores/quizStore";
-
+import { getQuiz, submitQuizAnswer } from "@/assets/scripts/server-api";
 import QuizQuestion from "@/components/quiz/quiz-question.vue";
-import IconBack from "@/components/icons/IconBack.vue";
-import IconForward from "@/components/icons/IconForward.vue";
-import {  } from '../stores/quizStore';
+import { quizStoreV2, type QuestionAnswer, type QuestionResponse, type QuizFull, type QuizInterfaceV2, type Review, type ReviewQuestion } from "@/stores/quizStore";
+import { userStore } from "@/stores/userStore";
+import { mapState, mapStores } from "pinia";
 
 export default {
 	created() {
-		this.loadQuiz();
-		// if (this.quizId == 1) {
-		// 	console.log("Quiz 1");
-		// }
+		this.fetchQuiz();
 	},
 	data() {
 		return {
+			quiz: {} as QuizInterfaceV2,
 			quizId: Number(this.$route.params.quizId),
-			quizName: "",
-			questionArray: [] as QuestionInterface[],
-			answerArray: [] as AnswerInterface[],
+			answerArray: [] as QuestionResponse[],
 		};
 	},
 	computed: {
-		...mapState(quizStore, ["quizzesGet", "getQuizById"]),
-		// quizName(): string | undefined {
-		// 	return this.getQuizById(this.quizId)?.title;
-		// },
-		// questionArray(): QuestionInterface[] {
-		// 	return this.getQuizById(this.quizId)?.questions || [];
-		// },
+		...mapStores(quizStoreV2),
+		...mapStores(userStore),
 	},
 	components: {
 		QuizQuestion,
-		IconBack,
-		IconForward
 	},
 	methods: {
-		async loadQuiz() {
-			const res = await fetch('/mockQuiz.json');
-			const data = await res.json() as QuizInterface[];
-			const quiz = data.find((quiz) => quiz.id === this.quizId);
-			if (quiz) {
-				this.quizName = quiz.title;
-				this.questionArray = quiz.questions;
-				this.answerArray = quiz.questions.map((question) => {
-					return {
-						question_id: question.id,
-						answer: "",
-						user_id: 1,
-					};
-				});
-			}
+		loadQuiz() {
+			const quiz: QuizInterfaceV2 = this.quizStoreV2Store.quizzes.find((quiz) => quiz.id === this.quizId) as QuizInterfaceV2;
+			this.quiz = quiz;
+			this.answerArray = quiz.question_array.map((question) => {
+				return {
+					question_id: question.id,
+					answer: "",
+					user_id: this.userStoreStore.currentUser.id,
+				} as QuestionResponse;
+			});
+		},
+		async fetchQuiz() {
+			let quizFull: QuizFull = await getQuiz(this.quizId);
+
+			this.quiz = {
+				id: quizFull.id,
+				title: quizFull.title,
+				question_count: quizFull.questions.length,
+				question_array: quizFull.questions,
+				finished: false,
+				score: 0,
+			} as QuizInterfaceV2;
+
+			this.answerArray = this.quiz.question_array.map((question) => {
+				return {
+					question_id: question.id,
+					answer: "",
+					user_id: this.userStoreStore.currentUser.id,
+				} as QuestionResponse;
+			});
+
 		},
 		updateAnswerArray(answer: string, questionId: number) {
-			console.log(answer, questionId);
-			this.answerArray.find((answer) => answer.question_id === questionId)!.answer = answer;
+			let answerIndex = this.answerArray.findIndex((a) => a.question_id === questionId);
+			this.answerArray[answerIndex].answer = answer;
+			console.log(answer, questionId, answerIndex);
 		},
-		submitQuiz() {
-			// submit the answers to the database
-			console.log(this.answerArray);
-			// process the response
-			const quizReview: QuizReviewInterface = {
+		async submitQuiz() {
+			let markedAnswers: QuestionAnswer[];
+			let markedAnswersPromise = this.answerArray.map(async (answer) => {
+				const response = await submitQuizAnswer(this.quiz.id, answer);
+				return response;
+			});
+			markedAnswers = await Promise.all(markedAnswersPromise);
+
+			let score = markedAnswers.filter((answer) => answer.correct).length;
+			this.quizStoreV2Store.finishQuiz(this.quizId, score)
+
+			let reviewAnswers: ReviewQuestion[] = markedAnswers.map((answer, index) => {
+				return {
+					id: answer.id,
+					question: this.quiz.question_array[index].question,
+					answers: this.quiz.question_array[index].answers,
+					correct_answer: answer.correct_answer,
+					selected_answer: this.answerArray[index].answer
+				}
+			});
+			let review: Review = {
 				id: this.quizId,
-				title: this.quizName,
-				questions: this.questionArray.map((question) => {
-					const questionReview: QuestionReviewInterface = {
-						id: question.id,
-						question: question.question,
-						answers: this.questionArray.find((q) => q.id === question.id)!.answers,
-						correctAnswer: question.correctAnswer || "",
-						selectedAnswer: this.answerArray.find((answer) => answer.question_id === question.id)!.answer
-					};
-					return questionReview;
-				}),
+				title: this.quiz.title,
+				question_count: this.quiz.question_count,
+				question_array: reviewAnswers,
+				score: score,
 			}
 
-			console.log(quizReview);
-			this.addAnsweredQuiz(quizReview);
-			this.markQuizAsFinished(this.quizId);
-
-			const score = quizReview.questions.filter((question) => question.selectedAnswer === question.correctAnswer).length;
-			const maxScore = quizReview.questions.length;
-			this.updateQuizScore(this.quizId, score, maxScore);
-
+			this.quizStoreV2Store.addQuizReview(review);
 
 			// redirect to the results page
 			this.$router.push(`/quiz/${this.quizId}/results`);
+
+			console.log(markedAnswers);
 		},
-		...mapActions(quizStore, ["addAnsweredQuiz", "markQuizAsFinished", "updateQuizScore"]),
 	},
 };
 </script>
 
 <template>
-	<div v-if="quizName != ''">
+	<div v-if="quiz.title != ''">
 		<div class="min-h-screen py-20">
 			<div class="mx-auto max-w-4xl">
-				<h1 class="mx-auto w-fit px-4 py-1 mb-4 text-3xl border-b-2">Quiz: {{ quizName }} </h1>
+				<h1 class="mx-auto w-fit px-4 py-1 mb-4 text-3xl border-b-2">Quiz: {{ quiz.title }} </h1>
 				<div class="bg-secondary rounded-md">
-					<div v-for="(question, index) in questionArray" class="w-full p-4 space-y-4">
+					<div v-for="(question, index) in quiz.question_array" class="w-full p-4 space-y-4">
 						<quiz-question :question="question" :question-index="index + 1" @answer-selected="updateAnswerArray" />
 					</div>
 				</div>
 				<div class="my-1 pl-3 flex items-center">
-					<button class="rounded-full py-2 pl-5 pr-3 bg-indigo-600 text-white hover:bg-indigo-500">
-						<IconBack />
-					</button>
-					<button class="h-10 rounded-full py-2 px-4 ml-2 bg-indigo-600 text-white hover:bg-indigo-500">
-						<IconForward />
-					</button>
 					<button class="ml-auto rounded-md my-2 font-bold bg-green-600 text-white hover:bg-green-500"
 						@click="submitQuiz">
 						<span class="leading-10 px-2 tracking-wide">Finish</span>
@@ -121,10 +120,3 @@ export default {
 		</div>
 	</div>
 </template>
-
-<!-- TODO Make dynamic routes for each quiz subsection /user/quiz-name/1 -->
-<!-- TODO Split quizzes in groups of five questions -->
-<!-- TODO Navigate groups with arrow buttons -->
-<!-- TODO Disable left and write button when at the end -->
-<!-- TODO Disable finish button unless all questions are answered -->
-<!-- TODO Add button to leave quiz -->

@@ -1,5 +1,5 @@
 <script lang="ts">
-import type { QuestionInterface } from '@/stores/quizStore';
+import type { QuestionPreview } from '@/stores/quizStore';
 
 export default {
 	emits: ["answerSelected"],
@@ -10,7 +10,7 @@ export default {
 	},
 	props: {
 		question: {
-			type: Object as () => QuestionInterface,
+			type: Object as () => QuestionPreview,
 			required: true,
 		},
 		questionIndex: {
@@ -38,11 +38,10 @@ export default {
 		<p> Question {{ questionIndex }}</p>
 		<p>{{ question.question }}</p>
 		<div v-for="(answer, index) in question.answers" class="m-2">
-			<div class="flex items-center">
+			<div class="flex items-center" @click="answerSelected(answer)">
 				<input class="hover:cursor-pointer mr-1 h-4 w-4" type="radio" :name="createName(questionIndex)"
-					:id="createId(questionIndex, index)" @click="qAnswer = answer" />
-				<label class="hover:cursor-pointer" :for="createId(questionIndex, index)" @click="answerSelected(answer)">{{ answer
-				}}</label>
+					:id="createId(questionIndex, index)" />
+				<label class="hover:cursor-pointer" :for="createId(questionIndex, index)">{{ answer }}</label>
 			</div>
 		</div>
 	</div>
