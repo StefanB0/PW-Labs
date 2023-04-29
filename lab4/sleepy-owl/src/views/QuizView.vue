@@ -59,7 +59,6 @@ export default {
 		updateAnswerArray(answer: string, questionId: number) {
 			let answerIndex = this.answerArray.findIndex((a) => a.question_id === questionId);
 			this.answerArray[answerIndex].answer = answer;
-			console.log(answer, questionId, answerIndex);
 		},
 		async submitQuiz() {
 			let markedAnswers: QuestionAnswer[];
@@ -93,8 +92,6 @@ export default {
 
 			// redirect to the results page
 			this.$router.push(`/quiz/${this.quizId}/results`);
-
-			console.log(markedAnswers);
 		},
 	},
 };

@@ -32,7 +32,6 @@ onBeforeMount(async () => {
 router.beforeEach((to, _from) => {
 	if (!userStorage.isAuth) {
 		if (to.name !== 'LogIn' && to.name !== 'SignUp') {
-			console.log(to.name);
 			return 'log-in';
 		}
 	}

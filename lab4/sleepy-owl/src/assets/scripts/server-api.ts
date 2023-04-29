@@ -20,7 +20,6 @@ const config = {
 }
 
 export async function getUsers(): Promise<UserInterface[]> {
-	console.log("getUsers")
 	let users: UserInterface[] = []
 
 	await axios
@@ -54,7 +53,6 @@ export async function createUser(
 		.then((response) => {
 			if (response.data.message) {
 				user = {} as UserInterface
-				console.log(response.data.message)
 			} else {
 				user = response.data
 			}
