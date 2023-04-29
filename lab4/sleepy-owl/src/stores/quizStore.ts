@@ -1,6 +1,42 @@
 import { ref, computed, type Ref } from "vue"
 import { defineStore } from "pinia"
 
+export interface QuizPreview {
+	id: number
+	title: string
+	question_count: number
+}
+
+export interface QuizFull {
+	id: number
+	title: string
+	questions: []
+}
+
+export interface QuestionPreview {
+	id: number
+	question: string
+	answers: string[]
+}
+
+export interface QuestionFull {
+	question: string
+	answers: string[]
+	correct_answer: string
+}
+
+export interface QuizResponse {
+	question_id: number
+	answer: string
+	user_id: number
+}
+
+export interface QuizAnswer {
+	id: number
+	correct_answer: string
+	correct: boolean
+}
+
 export interface QuizInterface {
 	id: number
 	title: string
