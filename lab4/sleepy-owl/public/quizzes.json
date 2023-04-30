@@ -1,0 +1,187 @@
+[
+	{
+		"data": {
+			"title": "On the Life of Penguins, the Quiz",
+			"questions": [
+				{
+					"question": "What is the smallest species of penguin?",
+					"answers": ["Emperor Penguin", "Little Blue Penguin", "King Penguin"],
+					"correct_answer": "Little Blue Penguin"
+				},
+				{
+					"question": "What do penguins eat?",
+					"answers": ["Only fish", "Only krill", "Both fish and krill"],
+					"correct_answer": "Both fish and krill"
+				},
+				{
+					"question": "What is the purpose of the unique black and white coloring of penguins?",
+					"answers": [
+						"To attract mates",
+						"To help them blend in with their environment",
+						"To communicate with other penguins"
+					],
+					"correct_answer": "To help them blend in with their environment"
+				},
+				{
+					"question": "What is the largest species of penguin?",
+					"answers": ["Emperor Penguin", "Gentoo Penguin", "African Penguin"],
+					"correct_answer": "Emperor Penguin"
+				},
+				{
+					"question": "How do penguins keep their eggs warm?",
+					"answers": [
+						"By sitting on them with their feet",
+						"By holding them in their beak",
+						"By wrapping them in seaweed"
+					],
+					"correct_answer": "By sitting on them with their feet"
+				}
+			]
+		}
+	},
+	{
+		"data": {
+			"title": "Video Game Quiz",
+			"questions": [
+				{
+					"question": "What is the iconic weapon of the Half-Life series?",
+					"answers": ["Crowbar", "Machine gun", "Portal Gun", "BFG"],
+					"correct_answer": "Crowbar"
+				},
+				{
+					"question": "What is the estimated value of the video game market in 2022 in the USA alone?",
+					"answers": [
+						"10 million dollars",
+						"1 billion dollars",
+						"100 billion dollars"
+					],
+					"correct_answer": "100 billion dollars"
+				},
+				{
+					"question": "What country was the famous Mario game series created in?",
+					"answers": ["Italy", "The United States", "Japan", "Germany"],
+					"correct_answer": "Japan"
+				},
+				{
+					"question": "What game tournament had a prize pool of over $34 million in 2019?",
+					"answers": [
+						"Dota 2",
+						"CS GO",
+						"Street Fighter V",
+						"League of Legends"
+					],
+					"correct_answer": "Dota 2"
+				},
+				{
+					"question": "Which game won the Steam Awards of 2020 for Game of the Year?",
+					"answers": [
+						"Red Dead Redemption 2",
+						"Hades",
+						"Doom Eternal",
+						"Fall Guys"
+					],
+					"correct_answer": "Red Dead Redemption 2"
+				},
+				{
+					"question": "Who is Malenia?",
+					"answers": [
+						"The First Elden Lord",
+						"The Blade of Miquella",
+						"The Queen of the Full Moon"
+					],
+					"correct_answer": "The Blade of Miquella"
+				}
+			]
+		}
+	},
+	{
+		"data": {
+			"title": "Data Algorithms Quiz",
+			"questions": [
+				{
+					"question": "What is the purpose of a sorting algorithm?",
+					"answers": [
+						"To search for a particular element in a list",
+						"To group similar elements together",
+						"To arrange the elements of a list in a specific order",
+						"To remove duplicate elements from a list",
+						"To find the largest element in a list"
+					],
+					"correct_answer": "To arrange the elements of a list in a specific order"
+				},
+				{
+					"question": "Which algorithm is commonly used for finding the shortest path in a graph?",
+					"answers": [
+						"Breadth-first search",
+						"Depth-first search",
+						"Dijkstra's algorithm"
+					],
+					"correct_answer": "Dijkstra's algorithm"
+				},
+				{
+					"question": "What is the time complexity of the quicksort algorithm in the average case?",
+					"answers": ["O(n)", "O(n log n)", "O(n^2)", "O(log n)"],
+					"correct_answer": "O(n log n)"
+				}
+			]
+		}
+	},
+	{
+		"data": {
+			"title": "Physics Quiz",
+			"questions": [
+				{
+					"question": "What is the SI unit of force?",
+					"answers": ["Newton", "Joule", "Kilogram"],
+					"correct_answer": "Newton"
+				},
+				{
+					"question": "What is the formula for calculating speed?",
+					"answers": [
+						"Speed = Distance / Time",
+						"Speed = Distance * Time",
+						"Speed = Force / Mass",
+						"Speed = Force * Mass"
+					],
+					"correct_answer": "Speed = Distance / Time"
+				},
+				{
+					"question": "Which of the following is true about sound waves?",
+					"answers": [
+						"They travel faster in air than in water",
+						"They require a medium to travel through",
+						"They cannot be reflected or refracted"
+					],
+					"correct_answer": "They require a medium to travel through"
+				},
+				{
+					"question": "What is the third law of motion?",
+					"answers": [
+						"For every action, there is an equal and opposite reaction",
+						"An object at rest will remain at rest unless acted upon by an unbalanced force",
+						"The acceleration of an object is directly proportional to the net force acting on it",
+						"The force of gravity is inversely proportional to the square of the distance between two objects"
+					],
+					"correct_answer": "For every action, there is an equal and opposite reaction"
+				}
+			]
+		}
+	},
+	{
+		"data": {
+			"title": "Math Quiz",
+			"questions": [
+				{
+					"question": "Which of the following numbers is the closest approximation of pi?",
+					"answers": ["3.14111", "3.14126", "3.14178", "3.14159", "3.14134"],
+					"correct_answer": "3.14159"
+				},
+				{
+					"question": "What is the value of x in the equation 2x^4 - 5x^3 + 4x^2 - 7x + 1 = 0 ?",
+					"answers": ["0", "1", "7", "10", "12"],
+					"correct_answer": "7"
+				}
+			]
+		}
+	}
+]

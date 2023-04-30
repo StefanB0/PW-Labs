@@ -54,6 +54,12 @@ export default {
 			quizArray.forEach(async (quiz) => {
 				this.quizStoreV2Store.addQuiz(await quiz);
 			});
+
+			this.quizStoreV2Store.quizzes.forEach((quiz) => {
+				if (quizPreviews.find((quizPreview) => quizPreview.id === quiz.id)) return;
+				this.quizStoreV2Store.removeQuiz(quiz.id);
+				this.quizStoreV2Store.removeQuizReview(quiz.id);
+			});
 		},
 		logOut() {
 			this.userStoreStore.changeUser({ name: "", surname: "", id: 0 } as UserInterface);

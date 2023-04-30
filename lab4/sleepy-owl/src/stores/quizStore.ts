@@ -88,6 +88,12 @@ export const quizStoreV2 = defineStore("quizStoreV2", {
 			}
 			this.quizReviews.push(review)
 		},
+		removeQuizReview(quizId: number) {
+			const quizIndex = this.quizReviews.findIndex((q) => q.id === quizId)
+			if (quizIndex !== -1) {
+				this.quizReviews.splice(quizIndex, 1)
+			}
+		},
 		updateQuiz(quiz: QuizInterfaceV2) {
 			const quizIndex = this.quizzes.findIndex((q) => q.id === quiz.id)
 			if (quizIndex !== -1) {
@@ -108,8 +114,8 @@ export const quizStoreV2 = defineStore("quizStoreV2", {
 				return q
 			})
 		},
-		removeQuiz(quiz: QuizInterfaceV2) {
-			const quizIndex = this.quizzes.findIndex((q) => q.id === quiz.id)
+		removeQuiz(quizId: Number) {
+			const quizIndex = this.quizzes.findIndex((q) => q.id === quizId)
 			if (quizIndex !== -1) {
 				this.quizzes.splice(quizIndex, 1)
 			}

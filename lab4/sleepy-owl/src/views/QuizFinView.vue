@@ -7,6 +7,7 @@ import { quizStoreV2 } from '../stores/quizStore';
 export default {
 	created() {
 		this.loadQuiz();
+		console.log(this.pass)
 	},
 	data() {
 		return {
@@ -16,6 +17,9 @@ export default {
 	},
 	computed: {
 		...mapStores(quizStoreV2),
+		pass() {
+			return this.quizReview.score / this.quizReview.question_count >= 0.5;
+		},
 	},
 	methods: {
 		loadQuiz() {
@@ -58,7 +62,11 @@ export default {
 						</div>
 					</div>
 				</div>
-				<div class="my-1">
+				<div class="my-1 flex justify-between items-center">
+					<div class="text-xl pl-5">
+						<span :class="{ 'text-red-500': !pass, 'text-green-500': pass }">{{ quizReview.score }}</span>
+						<span> / {{ quizReview.question_count }}</span>
+					</div>
 					<RouterLink to="/">
 						<button class="float-right ml-auto rounded-md my-2 font-bold bg-green-600 text-white hover:bg-green-500">
 							<span class="leading-10 px-2 tracking-wide">Finish Review</span>
