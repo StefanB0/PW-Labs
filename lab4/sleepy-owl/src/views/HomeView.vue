@@ -112,5 +112,3 @@ export default {
 		</div>
 	</main>
 </template>
-
-<!-- TODO Generate a list of 10 quizzes with questions and answers then populate the API -->

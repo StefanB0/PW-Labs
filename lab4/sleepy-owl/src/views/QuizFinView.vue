@@ -77,5 +77,3 @@ export default {
 		</div>
 	</div>
 </template>
-
-<!-- TODO Display the total amount of points where the navigation buttons were -->
