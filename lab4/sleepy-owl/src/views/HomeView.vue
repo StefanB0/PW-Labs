@@ -53,6 +53,7 @@ export default {
 
 			quizArray.forEach(async (quiz) => {
 				this.quizStoreV2Store.addQuiz(await quiz);
+				this.quizStoreV2Store.sortQuizzes();
 			});
 
 			this.quizStoreV2Store.quizzes.forEach((quiz) => {

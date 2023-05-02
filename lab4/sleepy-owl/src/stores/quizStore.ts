@@ -107,6 +107,11 @@ export const quizStoreV2 = defineStore("quizStoreV2", {
 				this.quizzes[quizIndex].score = score
 			}
 		},
+		sortQuizzes() {
+			this.quizzes.sort((a, b) => {
+				return b.id - a.id
+			})
+		},
 		resetQuizzes() {
 			this.quizzes = this.quizzes.map((q) => {
 				q.finished = false
@@ -122,4 +127,3 @@ export const quizStoreV2 = defineStore("quizStoreV2", {
 		},
 	},
 })
-
